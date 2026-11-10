@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>月事小日記｜溫柔照顧自己</title>
+<style>
+:root{
+ --canvas:#fff3dc;--paper:#fff;--powder:#ffe7c7;--powder-soft:#fff9ed;
+ --sky:#86d8ec;--sky-soft:#e6f8fb;--indigo:#8c79d9;--indigo-soft:#eee9ff;
+ --primary:#cc4352;--primary-dark:#a93645;--primary-soft:#ffe2e3;
+ --green:#23856b;--green-soft:#e3f7ef;--amber:#9a6400;--amber-soft:#fff0bd;
+ --orange:#f28c52;--yellow:#f7c948;--ink:#463544;--soft-ink:#665566;
+ --muted:#887584;--line:#ead8cc;--glass:rgba(255,255,255,.86);
+ --shadow:0 22px 60px rgba(142,88,70,.16);--shadow-soft:0 12px 28px rgba(142,88,70,.11);
+ --radius-xl:32px;--radius-lg:24px;--radius-md:18px;
+}
+*{box-sizing:border-box}
+input,select,textarea{max-width:100%;font:inherit}
+body{
+ margin:0;min-height:100vh;color:var(--ink);
+ font-family:"Microsoft JhengHei","Noto Sans TC",system-ui,sans-serif;
+ background:radial-gradient(circle at 8% 10%,rgba(247,201,72,.32),transparent 25%),
+ radial-gradient(circle at 92% 12%,rgba(242,140,82,.22),transparent 28%),
+ radial-gradient(circle at 52% 96%,rgba(89,195,165,.18),transparent 32%),
+ linear-gradient(135deg,#fff0d2 0%,#fff9ed 48%,#ffe8dc 100%);
+ background-attachment:fixed;
+}
+button{font:inherit;cursor:pointer}
+.container{width:min(1120px,calc(100% - 28px));margin:auto;padding:22px 0 54px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 17px;border-radius:999px;background:var(--glass);border:2px solid #fff;box-shadow:var(--shadow-soft);margin-bottom:22px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:950}
+.logo{width:42px;height:42px;border-radius:15px;display:grid;place-items:center;color:white;background:linear-gradient(135deg,var(--primary-dark),var(--primary));box-shadow:0 10px 22px #cc435244;font-size:22px}
+.menu{display:flex;gap:5px;flex-wrap:wrap}
+.menu a{color:var(--soft-ink);text-decoration:none;padding:9px 12px;border-radius:999px;font-size:14px;font-weight:800}
+.menu a:hover{background:var(--amber-soft);color:var(--primary)}
+.hero{display:grid;grid-template-columns:1.08fr .92fr;gap:20px;margin-bottom:22px}
+.hero-card{position:relative;overflow:hidden;min-height:300px;padding:clamp(24px,4vw,44px);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(255,255,255,.94),rgba(255,255,255,.68)),linear-gradient(135deg,#f7c94844,#f28c5233,#59c3a533);border:2px solid white;box-shadow:var(--shadow)}
+.hero-card:before{content:"";position:absolute;width:170px;height:170px;right:-48px;top:-55px;border-radius:50%;background:linear-gradient(135deg,var(--yellow),var(--orange));opacity:.65}
+.hero-content{position:relative;z-index:1}
+.eyebrow{display:inline-block;padding:8px 13px;border-radius:999px;background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:950;margin-bottom:17px}
+h1{font-size:clamp(34px,5vw,56px);line-height:1.14;margin:0;letter-spacing:.02em}
+.accent{background:linear-gradient(90deg,var(--primary-dark),var(--primary),var(--orange));background-clip:text;color:transparent}
+.hero p{line-height:1.85;color:var(--soft-ink);font-size:16px;max-width:570px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.btn{border:0;border-radius:999px;padding:13px 18px;color:white;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--primary-dark));box-shadow:0 12px 24px #cc435233}
+.btn:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.btn.secondary{background:white;color:var(--primary-dark);border:1px solid #cc435244;box-shadow:var(--shadow-soft)}
+.btn.green{background:linear-gradient(135deg,#2b9878,#1f6f59)}
+.side-stack{display:grid;gap:14px}
+.info-card{padding:21px;border-radius:var(--radius-xl);background:rgba(255,255,255,.82);border:1px solid white;box-shadow:var(--shadow-soft)}
+.mood-card{background:linear-gradient(135deg,#fff0bded,#ffffffc9)}
+.mood-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.mood-head h2,.info-card h2{font-size:21px;margin:0}
+.sun{width:66px;height:66px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 35%,#fff7ad,#facc15 58%,#fb923c);font-size:35px;flex:none}
+.info-card p{color:var(--soft-ink);line-height:1.75;margin:8px 0 0}
+.notice{background:var(--primary-soft);color:var(--primary-dark);padding:14px 16px;border-radius:17px;font-weight:750;line-height:1.7}
+.section{padding:23px;border-radius:var(--radius-xl);background:var(--glass);border:2px solid white;box-shadow:var(--shadow-soft);margin-bottom:20px;backdrop-filter:blur(12px)}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:17px}
+.section h2{font-size:25px;margin:0}
+.desc{color:var(--soft-ink);line-height:1.7;margin:6px 0 0;font-size:14px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:grid;gap:7px;margin-bottom:13px}
+.field label{font-weight:850;font-size:14px;color:var(--soft-ink)}
+.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:14px;background:white;padding:12px 13px;color:var(--ink);outline:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px #cc435222}
+.field textarea{resize:vertical;min-height:88px}
+.form-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:5px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.stat{padding:17px;border-radius:21px;color:white;box-shadow:var(--shadow-soft);min-width:0}
+.stat:nth-child(1){background:linear-gradient(135deg,var(--primary-dark),var(--primary))}
+.stat:nth-child(2){background:linear-gradient(135deg,#1f6f59,var(--green))}
+.stat:nth-child(3){background:linear-gradient(135deg,#6f5dbd,var(--indigo))}
+.stat span{font-size:13px;font-weight:850;opacity:.94}
+.stat strong{display:block;font-size:clamp(25px,4vw,34px);margin-top:6px;overflow-wrap:anywhere}
+.calendar-wrap{background:white;border:1px solid var(--line);border-radius:22px;padding:15px}
+.calendar-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.calendar-top strong{font-size:19px}
+.month-btn{border:0;background:var(--sky-soft);color:#176779;border-radius:12px;padding:9px 13px;font-weight:900}
+.weekdays,.calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+.weekdays div{text-align:center;color:var(--muted);font-size:12px;font-weight:900;padding:7px 0}
+.day{min-height:58px;border-radius:13px;background:#fff9ed;padding:6px 3px;text-align:center;border:1px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:13px}
+.day.empty{background:transparent}
+.day.today{border-color:var(--indigo)}
+.day.period{background:var(--primary-soft);color:var(--primary-dark);font-weight:950}
+.day.selected{outline:2px solid var(--primary);outline-offset:-2px}
+.day small{font-size:10px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:12px;margin-top:12px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:var(--primary)}
+.record-list{display:grid;gap:10px}
+.record{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;border-radius:18px;background:var(--powder-soft);border:1px solid var(--line)}
+.record strong{display:block;margin-bottom:4px}
+.record small{color:var(--muted)}
+.record button{border:0;border-radius:12px;padding:8px 10px;background:var(--primary-soft);color:var(--primary-dark);font-weight:850}
+.empty{text-align:center;padding:24px;color:var(--muted);background:var(--powder-soft);border-radius:18px}
+.footer{text-align:center;color:var(--muted);font-size:12px;line-height:1.8;padding:6px 12px}
+:focus-visible{outline:3px solid #cc435266;outline-offset:3px}
+@media(max-width:800px){.hero{grid-template-columns:1fr}.hero-card{min-height:260px}.grid-2{grid-template-columns:1fr}}
+@media(max-width:560px){
+ .container{width:calc(100% - 18px);padding-top:13px}
+ .topbar{border-radius:22px;align-items:flex-start}.menu{display:none}
+ .section{padding:16px;border-radius:24px}.section h2{font-size:21px}
+ .stats{gap:7px}.stat{padding:12px;border-radius:16px}.stat span{font-size:11px}
+ .calendar-wrap{padding:8px}.day{min-height:46px;font-size:12px;border-radius:10px}
+ .record{align-items:flex-start}.record button{flex:none}
+ .actions .btn,.form-actions .btn{flex:1}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="container">
+ <nav class="topbar" aria-label="主要導覽">
+  <div class="brand"><div class="logo">🌷</div><span>月事小日記</span></div>
+  <div class="menu"><a href="#record">新增紀錄</a><a href="#calendar">月曆</a><a href="#history">歷史紀錄</a><a href="#privacy">隱私說明</a></div>
+ </nav>
+
+ <section class="hero">
+  <div class="hero-card"><div class="hero-content">
+   <div class="eyebrow">🌼 GENTLE SELF-CARE</div>
+   <h1>好好照顧自己，<br><span class="accent">從一點點紀錄開始</span></h1>
+   <p>用簡單的方式記下月經日期、身體感受與心情。每個人的週期都可能不同，不需要和別人比較，慢慢認識自己的身體就好。</p>
+   <div class="actions"><a class="btn" href="#record" style="text-decoration:none">＋ 新增月事紀錄</a><a class="btn secondary" href="#calendar" style="text-decoration:none">📅 查看月曆</a></div>
+  </div></div>
+  <aside class="side-stack">
+   <div class="info-card mood-card"><div class="mood-head"><div><h2>今天也要溫柔待己 ☀️</h2><p>喝水、休息，照自己的步調生活。</p></div><div class="sun">☀️</div></div></div>
+   <div class="info-card"><h2>💗 小小提醒</h2><p>紀錄是幫助自己觀察身體的工具。若經期狀況讓你擔心或影響日常生活，可以找信任的大人或醫療專業人員聊聊。</p></div>
+  </aside>
+ </section>
+
+ <section class="section" aria-label="紀錄統計">
+  <div class="section-head"><div><h2>🌸 我的紀錄概況</h2><p class="desc">統計依你已儲存的資料自動更新。</p></div></div>
+  <div class="stats">
+   <div class="stat"><span>已記錄經期</span><strong id="countStat">0 次</strong></div>
+   <div class="stat"><span>最近一次開始</span><strong id="lastStat">尚無</strong></div>
+   <div class="stat"><span>平均週期</span><strong id="cycleStat">—</strong></div>
+  </div>
+  <div class="notice">🌈 每個人的月經週期與經期長短都可能不同。資料不足時不會推測日期；任何預估都不是保證。</div>
+ </section>
+
+ <section class="section" id="record">
+  <div class="section-head"><div><h2>📝 新增月事紀錄</h2><p class="desc">選擇日期，記下這次經期與當天的感受。</p></div></div>
+  <form id="periodForm">
+   <div class="grid-2">
+    <div class="field"><label for="startDate">月經開始日期 *</label><input id="startDate" type="date" required></div>
+    <div class="field"><label for="endDate">月經結束日期（可稍後補）</label><input id="endDate" type="date"></div>
+   </div>
+   <div class="grid-2">
+    <div class="field"><label for="flow">經血量（選填）</label><select id="flow"><option value="">不記錄</option><option>少量</option><option>普通</option><option>較多</option></select></div>
+    <div class="field"><label for="feeling">今天的心情（選填）</label><select id="feeling"><option value="">先不選</option><option>😊 平靜</option><option>🌷 愉快</option><option>😴 疲倦</option><option>😣 不舒服</option><option>🥺 有點低落</option></select></div>
+   </div>
+   <div class="field"><label for="notes">身體感受／備註（選填）</label><textarea id="notes" maxlength="500" placeholder="例如：今天想多休息、肚子有點悶悶的……"></textarea></div>
+   <div class="form-actions"><button class="btn" type="submit">💾 儲存這次紀錄</button><button class="btn secondary" type="reset">清空欄位</button></div>
+   <p id="formMessage" role="status" aria-live="polite" class="desc"></p>
+  </form>
+ </section>
+
+ <section class="section" id="calendar">
+  <div class="section-head"><div><h2>📅 月事月曆</h2><p class="desc">粉紅色日期代表已記錄的經期。</p></div></div>
+  <div class="calendar-wrap">
+   <div class="calendar-top"><button class="month-btn" id="prevMonth" type="button" aria-label="上一個月">← 上個月</button><strong id="monthLabel"></strong><button class="month-btn" id="nextMonth" type="button" aria-label="下一個月">下個月 →</button></div>
+   <div class="weekdays"><div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div></div>
+   <div class="calendar" id="calendarGrid" aria-label="月曆日期"></div>
+   <div class="legend"><span><i class="dot"></i>已記錄經期</span><span>🟣 外框：今天</span></div>
+  </div>
+ </section>
+
+ <section class="section" id="history">
+  <div class="section-head"><div><h2>📚 歷史紀錄</h2><p class="desc">只有儲存在這個瀏覽器中的紀錄會顯示於此。</p></div><button class="btn secondary" id="exportBtn" type="button">⬇ 匯出 JSON</button></div>
+  <div class="record-list" id="recordList"><div class="empty">目前還沒有紀錄，新增一筆開始吧！ 🌷</div></div>
+ </section>
+
+ <section class="section" id="privacy">
+  <div class="section-head"><div><h2>🔒 隱私與資料管理</h2><p class="desc">資料預設只保存在目前瀏覽器的本機儲存空間。</p></div></div>
+  <div class="notice">這個工具不會連線上傳資料。清除瀏覽器網站資料、改用其他瀏覽器或裝置，可能會讓紀錄無法讀取。建議定期匯出備份。</div>
+  <div class="actions"><button class="btn secondary" id="clearBtn" type="button">🗑️ 清除全部紀錄</button></div>
+ </section>
+ <footer class="footer">月事小日記 · 離線單檔工具<br>週期統計僅依已記錄的開始日期計算，資料少或週期變動時不具預測能力。</footer>
+</main>
+<script>
+"use strict";
+// 本機資料管理：不呼叫外部 API，不傳送任何紀錄。
+const STORAGE_KEY = "gentle_period_diary_v1";
+let records = loadRecords();
+let viewDate = new Date();
+const $ = id => document.getElementById(id);
+function loadRecords(){
+ try{
+  const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+  return Array.isArray(parsed) ? parsed.filter(r => r && typeof r.id==="string" && /^\d{4}-\d{2}-\d{2}$/.test(r.start)) : [];
+ }catch(e){return [];}
+}
+function saveRecords(){
+ try{localStorage.setItem(STORAGE_KEY,JSON.stringify(records));return true;}
+ catch(e){$("formMessage").textContent="儲存空間無法使用，請檢查瀏覽器設定或先匯出資料。";return false;}
+}
+function parseDate(s){const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d,12);}
+function fmt(s){if(!s)return "未填寫";const d=parseDate(s);return `${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}`;}
+function dateKey(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;}
+function escapeHTML(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function render(){
+ renderStats();renderCalendar();renderHistory();
+}
+function renderStats(){
+ const sorted=[...records].sort((a,b)=>a.start.localeCompare(b.start));
+ $("countStat").textContent=`${sorted.length} 次`;
+ $("lastStat").textContent=sorted.length?fmt(sorted[sorted.length-1].start):"尚無";
+ const gaps=[];
+ for(let i=1;i<sorted.length;i++){
+  const diff=Math.round((parseDate(sorted[i].start)-parseDate(sorted[i-1].start))/86400000);
+  if(diff>0 && diff<100)gaps.push(diff);
+ }
+ $("cycleStat").textContent=gaps.length?`${Math.round(gaps.reduce((a,b)=>a+b,0)/gaps.length)} 天`:"—";
+}
+function periodDays(){
+ const set=new Set();
+ records.forEach(r=>{
+  const start=parseDate(r.start);
+  const end=r.end && r.end>=r.start ? parseDate(r.end) : start;
+  const days=Math.min(20,Math.max(1,Math.round((end-start)/86400000)+1));
+  for(let i=0;i<days;i++){const d=new Date(start);d.setDate(d.getDate()+i);set.add(dateKey(d));}
+ });
+ return set;
+}
+function renderCalendar(){
+ const y=viewDate.getFullYear(),m=viewDate.getMonth();
+ $("monthLabel").textContent=`${y} 年 ${m+1} 月`;
+ const first=new Date(y,m,1).getDay(),count=new Date(y,m+1,0).getDate();
+ const periods=periodDays(),today=dateKey(new Date());
+ let out="";
+ for(let i=0;i<first;i++)out+='<div class="day empty" aria-hidden="true"></div>';
+ for(let day=1;day<=count;day++){
+  const key=dateKey(new Date(y,m,day,12));
+  const classes=["day"];
+  if(periods.has(key))classes.push("period");
+  if(key===today)classes.push("today");
+  out+=`<div class="${classes.join(" ")}" aria-label="${y}年${m+1}月${day}日${periods.has(key)?"，已記錄經期":""}">${day}${periods.has(key)?"<small>🌸</small>":""}</div>`;
+ }
+ $("calendarGrid").innerHTML=out;
+}
+function renderHistory(){
+ const sorted=[...records].sort((a,b)=>b.start.localeCompare(a.start));
+ if(!sorted.length){$("recordList").innerHTML='<div class="empty">目前還沒有紀錄，新增一筆開始吧！ 🌷</div>';return;}
+ $("recordList").innerHTML=sorted.map(r=>{
+  const duration=r.end&&r.end>=r.start?Math.round((parseDate(r.end)-parseDate(r.start))/86400000)+1:null;
+  const detail=[r.flow&&`經血量：${r.flow}`,r.feeling&&`心情：${r.feeling}`,r.notes&&`備註：${r.notes}`].filter(Boolean).join(" · ");
+  return `<article class="record"><div><strong>🌸 ${fmt(r.start)} 開始</strong><small>結束：${fmt(r.end)}${duration?` · 共 ${duration} 天`:" · 尚未填寫結束日"}${detail?`<br>${escapeHTML(detail)}`:""}</small></div><button type="button" data-delete="${escapeHTML(r.id)}" aria-label="刪除 ${fmt(r.start)} 的紀錄">刪除</button></article>`;
+ }).join("");
+}
+$("periodForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const start=$("startDate").value,end=$("endDate").value;
+ if(!start){$("formMessage").textContent="請先選擇月經開始日期。";$("startDate").focus();return;}
+ if(end&&end<start){$("formMessage").textContent="結束日期不能早於開始日期，請再確認。";$("endDate").focus();return;}
+ if(records.some(r=>r.start===start)){
+  $("formMessage").textContent="這個開始日期已經有紀錄囉；如需修改，請先刪除原紀錄再新增。";return;
+ }
+ const item={id:`${Date.now()}-${Math.random().toString(16).slice(2)}`,start,end,flow:$("flow").value,feeling:$("feeling").value,notes:$("notes").value.trim()};
+ records.push(item);
+ if(saveRecords()){render();$("periodForm").reset();$("formMessage").textContent="已儲存！照顧自己也別忘了休息 💗";}
+});
+$("recordList").addEventListener("click",e=>{
+ const btn=e.target.closest("button[data-delete]");if(!btn)return;
+ const id=btn.dataset.delete;
+ if(!confirm("確定刪除這筆紀錄嗎？"))return;
+ records=records.filter(r=>r.id!==id);if(saveRecords())render();
+});
+$("prevMonth").addEventListener("click",()=>{viewDate.setMonth(viewDate.getMonth()-1);renderCalendar();});
+$("nextMonth").addEventListener("click",()=>{viewDate.setMonth(viewDate.getMonth()+1);renderCalendar();});
+$("exportBtn").addEventListener("click",()=>{
+ const blob=new Blob([JSON.stringify({exportedAt:new Date().toISOString(),records},null,2)],{type:"application/json"});
+ const url=URL.createObjectURL(blob),a=document.createElement("a");
+ a.href=url;a.download="period-diary-backup.json";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+});
+$("clearBtn").addEventListener("click",()=>{
+ if(!records.length){alert("目前沒有可清除的紀錄。");return;}
+ if(!confirm("確定清除所有月事紀錄嗎？這個動作無法復原，建議先匯出備份。"))return;
+ records=[];
+ try{localStorage.removeItem(STORAGE_KEY);render();$("formMessage").textContent="所有紀錄已清除。";}
+ catch(e){alert("清除失敗，請檢查瀏覽器儲存設定。");}
+});
+// 初始日期預設為今天；結束日期留白，方便經期結束後再補登。
+$("startDate").value=dateKey(new Date());
+render();
+</script>
+</body>
+</html>
